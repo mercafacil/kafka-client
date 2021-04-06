@@ -1,1 +1,1 @@
-# kafka-node-handlers
+# Generic Kafka handlers for NodeJS
