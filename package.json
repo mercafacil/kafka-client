@@ -1,0 +1,31 @@
+{
+  "name": "@mercafacil/kafka-client",
+  "version": "1.0.0",
+  "description": "Kafka client",
+  "main": "dist/index.js",
+  "scripts": {
+    "build-prod": "tsc --build tsconfig.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mercafacil/kafka-client.git"
+  },
+  "keywords": [
+    "kafka"
+  ],
+  "author": "Diovane Miranda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mercafacil/kafka-client/issues"
+  },
+  "homepage": "https://github.com/mercafacil/kafka-client#readme",
+  "dependencies": {
+    "kafkajs": "^1.15.0"
+  },
+  "devDependencies": {
+    "ts-node": "^9.1.1",
+    "ts-node-dev": "^1.1.6",
+    "typescript": "^4.2.3"
+  }
+}
