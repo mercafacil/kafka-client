@@ -1,3 +1,4 @@
 import { KafkaClient } from './client'
+import { IGenericObject, IKafkaHandler } from './types'
 
-export { KafkaClient }
+export { KafkaClient, IGenericObject, IKafkaHandler }

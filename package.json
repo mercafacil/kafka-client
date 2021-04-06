@@ -1,6 +1,6 @@
 {
   "name": "@mercafacil/kafka-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Kafka client",
   "main": "dist/index.js",
   "scripts": {
@@ -24,6 +24,7 @@
     "kafkajs": "^1.15.0"
   },
   "devDependencies": {
+    "jest": "^26.6.3",
     "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.6",
     "typescript": "^4.2.3"
