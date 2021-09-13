@@ -38,7 +38,7 @@ class KafkaClient {
       ...runOptions,
       eachMessage: async ({ topic, partition, message }) => {
         const success = await handler.run(topic, message)
-        if (success) consumer.commitOffsets([{ topic, partition, offset: message.offset + 1 }])
+        if (success) consumer.commitOffsets([{ topic, partition, offset: `${Number(message.offset) + 1}` }])
       }
     })
   }
