@@ -42,6 +42,12 @@ class KafkaClient {
       }
     })
   }
+
+  async createPartitions(options) {
+    const admin = this.kafka.admin()
+    await admin.createPartitions(options)
+    return
+}
 }
 
 export { KafkaClient }

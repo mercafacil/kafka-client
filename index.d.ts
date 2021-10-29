@@ -15,4 +15,6 @@ export declare class KafkaClient {
     constructor(clientId: string, brokers: Array<string>);
     send(topic: string, messages: Array<KafkaMessage>): Promise<void>;
     startConsumer(topics: Array<string>, handler: IKafkaHandler, groupId?: string, fromBeginning?: boolean): Promise<void>;
+    createPartitions(ParticionConfig: any): Promise<void>;
+
 }
