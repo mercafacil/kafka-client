@@ -1,4 +1,4 @@
-import { KafkaMessage } from 'kafkajs'
+import { KafkaMessage, ITopicPartitionConfig } from 'kafkajs'
 
 interface IGenericObject {
   [key: string]: any
@@ -8,4 +8,10 @@ interface IKafkaHandler {
   run(topic: string, payload: KafkaMessage): Promise<Boolean>
 }
 
-export { IGenericObject, IKafkaHandler }
+interface CreatePartitionsOptions {
+  validateOnly?: boolean
+  timeout?: number
+  topicPartitions: ITopicPartitionConfig[]
+}
+
+export { IGenericObject, IKafkaHandler, CreatePartitionsOptions }
