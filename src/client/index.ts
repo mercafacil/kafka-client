@@ -1,5 +1,5 @@
 import { Kafka, KafkaConfig, Producer, ProducerConfig, ConsumerConfig, ConsumerRunConfig } from 'kafkajs'
-import { IKafkaHandler } from '../types'
+import { CreatePartitionsOptions, IKafkaHandler } from '../types'
 
 class KafkaClient {
   private static instance: KafkaClient
@@ -43,7 +43,7 @@ class KafkaClient {
     })
   }
 
-  async createPartitions(options) {
+  async createPartitions(options: CreatePartitionsOptions) {
     const admin = this.kafka.admin()
     await admin.createPartitions(options)
 }
