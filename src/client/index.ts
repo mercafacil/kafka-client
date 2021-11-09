@@ -54,6 +54,14 @@ class KafkaClient {
     return this.admin
   }
 
+  async disconnect() {
+    if (this.producer) {
+      await this.producer.disconnect()
+    }
+    if (this.admin) {
+      await this.admin.disconnect()
+    }
+  }
 }
 
 export { KafkaClient }
