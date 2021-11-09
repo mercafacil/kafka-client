@@ -1,10 +1,11 @@
-import { Kafka, KafkaConfig, Producer, ProducerConfig, ConsumerConfig, ConsumerRunConfig } from 'kafkajs'
+import { Kafka, KafkaConfig, Producer, Admin, ProducerConfig, ConsumerConfig, ConsumerRunConfig, AdminConfig } from 'kafkajs'
 import { IKafkaHandler } from '../types'
 
 class KafkaClient {
   private static instance: KafkaClient
   private producer: Producer
   private kafka: Kafka
+  private admin: Admin
 
   private constructor(config: KafkaConfig) {
     this.kafka = new Kafka(config)
@@ -27,6 +28,12 @@ class KafkaClient {
     return this.producer
   }
 
+  async stopProducer() {
+    if (this.producer) {
+      await this.producer.disconnect()
+    }
+  }
+
   async startConsumer(options: ConsumerConfig, runOptions: ConsumerRunConfig, topics: Array<string>, handler: IKafkaHandler, fromBeginning: boolean = false) {
     const consumer = this.kafka.consumer(options)
 
@@ -41,6 +48,31 @@ class KafkaClient {
         if (success) consumer.commitOffsets([{ topic, partition, offset: `${Number(message.offset) + 1}` }])
       }
     })
+  }
+
+  async startAdmin(options?: AdminConfig) {
+    if (!this.admin) {
+      this.admin = this.kafka.admin(options)
+    }
+
+    await this.admin.connect()
+
+    return this.admin
+  }
+
+  async stopAdmin() {
+    if (this.admin) {
+      await this.admin.disconnect()
+    }
+  }
+
+  async disconnect() {
+    if (this.producer) {
+      await this.producer.disconnect()
+    }
+    if (this.admin) {
+      await this.admin.disconnect()
+    }
   }
 }
 
