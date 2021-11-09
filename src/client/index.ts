@@ -1,10 +1,11 @@
-import { Kafka, KafkaConfig, Producer, ProducerConfig, ConsumerConfig, ConsumerRunConfig } from 'kafkajs'
+import { Kafka, KafkaConfig, Producer, Admin, ProducerConfig, ConsumerConfig, ConsumerRunConfig, AdminConfig } from 'kafkajs'
 import { IKafkaHandler } from '../types'
 
 class KafkaClient {
   private static instance: KafkaClient
   private producer: Producer
   private kafka: Kafka
+  private admin: Admin
 
   private constructor(config: KafkaConfig) {
     this.kafka = new Kafka(config)
@@ -42,6 +43,17 @@ class KafkaClient {
       }
     })
   }
+
+  async startAdmin(options?: AdminConfig) {
+    if (!this.admin) {
+      this.admin = this.kafka.admin(options)
+    }
+
+    await this.admin.connect()
+
+    return this.admin
+  }
+
 }
 
 export { KafkaClient }

@@ -1,4 +1,4 @@
-import { KafkaMessage, Kafka } from 'kafkajs';
+import { KafkaMessage, Kafka, Admin, AdminConfig, Producer, ProducerConfig} from 'kafkajs';
 import { GraphQLSchema, ExecutionResult } from 'graphql';
 
 interface IGenericObject {
@@ -15,4 +15,6 @@ export declare class KafkaClient {
     constructor(clientId: string, brokers: Array<string>);
     send(topic: string, messages: Array<KafkaMessage>): Promise<void>;
     startConsumer(topics: Array<string>, handler: IKafkaHandler, groupId?: string, fromBeginning?: boolean): Promise<void>;
+    startProducer(options?: ProducerConfig): Promise<Producer>;
+    startAdmin(option?: AdminConfig): Promise<Admin>;
 }
