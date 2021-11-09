@@ -28,6 +28,12 @@ class KafkaClient {
     return this.producer
   }
 
+  async stopProducer() {
+    if (this.producer) {
+      await this.producer.disconnect()
+    }
+  }
+
   async startConsumer(options: ConsumerConfig, runOptions: ConsumerRunConfig, topics: Array<string>, handler: IKafkaHandler, fromBeginning: boolean = false) {
     const consumer = this.kafka.consumer(options)
 
@@ -52,6 +58,12 @@ class KafkaClient {
     await this.admin.connect()
 
     return this.admin
+  }
+
+  async stopAdmin() {
+    if (this.admin) {
+      await this.admin.disconnect()
+    }
   }
 
   async disconnect() {
