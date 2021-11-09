@@ -16,5 +16,8 @@ export declare class KafkaClient {
     send(topic: string, messages: Array<KafkaMessage>): Promise<void>;
     startConsumer(topics: Array<string>, handler: IKafkaHandler, groupId?: string, fromBeginning?: boolean): Promise<void>;
     startProducer(options?: ProducerConfig): Promise<Producer>;
+    stopProducer():Promise<void>;
     startAdmin(option?: AdminConfig): Promise<Admin>;
+    stopAdmin():Promise<void>;
+    disconnect():Promise<void>;
 }
