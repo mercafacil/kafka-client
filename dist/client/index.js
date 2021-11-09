@@ -19,6 +19,11 @@ class KafkaClient {
         await this.producer.connect();
         return this.producer;
     }
+    async stopProducer() {
+        if (this.producer) {
+            await this.producer.disconnect();
+        }
+    }
     async startConsumer(options, runOptions, topics, handler, fromBeginning = false) {
         const consumer = this.kafka.consumer(options);
         await consumer.connect();
@@ -31,6 +36,26 @@ class KafkaClient {
                     consumer.commitOffsets([{ topic, partition, offset: `${Number(message.offset) + 1}` }]);
             }
         });
+    }
+    async startAdmin(options) {
+        if (!this.admin) {
+            this.admin = this.kafka.admin(options);
+        }
+        await this.admin.connect();
+        return this.admin;
+    }
+    async stopAdmin() {
+        if (this.admin) {
+            await this.admin.disconnect();
+        }
+    }
+    async disconnect() {
+        if (this.producer) {
+            await this.producer.disconnect();
+        }
+        if (this.admin) {
+            await this.admin.disconnect();
+        }
     }
 }
 exports.KafkaClient = KafkaClient;
